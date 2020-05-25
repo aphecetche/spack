@@ -56,8 +56,8 @@ class Rust(Package):
         description='Install Rust source files'
     )
 
-    depends_on('python@2.7:', type='build')
-    depends_on('python@2.7:2.8', when='@:1.43', type='build')
+    depends_on('python@:2.7', type='build')
+    #depends_on('python@2.7:2.8', when='@:1.43', type='build')
     depends_on('gmake@3.81:', type='build')
     depends_on('cmake@3.4.3:', type='build')
     depends_on('pkgconfig', type='build')

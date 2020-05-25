@@ -26,6 +26,13 @@ class Neovim(CMakePackage):
     version('0.2.0', sha256='72e263f9d23fe60403d53a52d4c95026b0be428c1b9c02b80ab55166ea3f62b5')
 
     depends_on('cmake@3.0:', type='build')
+    depends_on('pkgconfig', type='build')
+    depends_on('autoconf', type='build')
+    depends_on('automake', type='build')
+    depends_on('libtool', type='build')
+    depends_on('ninja', type='build')
+
+    generator = 'Ninja'
 
     depends_on('lua@5.1:5.2', when='@:0.4.0')
     depends_on('lua-lpeg', when='@:0.4.0')
@@ -52,7 +59,10 @@ class Neovim(CMakePackage):
         ]
         with working_dir(deps_build_dir, create=True):
             cmake(*options)
-            make()
+            if self.generator == 'Ninja':
+              ninja()
+            else:
+              make()
 
     def cmake_args(self):
         args = []

@@ -30,7 +30,7 @@ class PyCryptography(PythonPackage):
     depends_on('py-cffi@1.4.1:',             type=('build', 'run'))
     depends_on('py-cffi@1.8:1.11.2,1.11.4:', type=('build', 'run'), when='@2.7:')
 
-    depends_on('py-asn1crypto@0.21.0:', type=('build', 'run'))
+    depends_on('py-asn1crypto@0.21.0:', type=('build', 'run'), when='@:2.6')
     depends_on('py-six@1.4.1:',         type=('build', 'run'))
     depends_on('py-idna@2.1:',          type=('build', 'run'), when='@:2.4')  # deprecated
     depends_on('py-idna@2.1:',          type=('build', 'run'), when='@2.5: +idna')  # deprecated

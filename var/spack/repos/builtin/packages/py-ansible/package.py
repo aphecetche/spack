@@ -28,4 +28,5 @@ class PyAnsible(PythonPackage):
     depends_on('py-setuptools', type='build')
     depends_on('py-jinja2', type=('build', 'run'))
     depends_on('py-pyyaml', type=('build', 'run'))
-    depends_on('py-cryptography', type=('build', 'run'))
+    depends_on('py-cryptography@1.2:', type=('build', 'run'))
+    depends_on('py-cryptography@2.7:', type=('build', 'run'), when='@2.9:')
