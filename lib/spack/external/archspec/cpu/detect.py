@@ -99,17 +99,28 @@ def sysctl_info_dict():
     def sysctl(*args):
         return _check_output(["sysctl"] + list(args), env=child_environment).strip()
 
-    flags = (
-        sysctl("-n", "machdep.cpu.features").lower()
-        + " "
-        + sysctl("-n", "machdep.cpu.leaf7_features").lower()
-    )
-    info = {
-        "vendor_id": sysctl("-n", "machdep.cpu.vendor"),
-        "flags": flags,
-        "model": sysctl("-n", "machdep.cpu.model"),
-        "model name": sysctl("-n", "machdep.cpu.brand_string"),
-    }
+    model_name = sysctl("-n","machdep.cpu.brand_string")
+    if 'M1' in model_name:
+      # sysctl returns barely no info for Apple M1
+      # so we at least fill in vendor_id and model...
+      info = { 
+        "vendor_id": "Apple",
+        "flags": (),
+        "model": "M1",
+        "model name": model_name
+      }
+    else:
+      flags = (
+          sysctl("-n", "machdep.cpu.features").lower()
+          + " "
+          + sysctl("-n", "machdep.cpu.leaf7_features").lower()
+      )
+      info = {
+          "vendor_id": sysctl("-n", "machdep.cpu.vendor"),
+          "flags": flags,
+          "model": sysctl("-n", "machdep.cpu.model"),
+          "model name": sysctl("-n", "machdep.cpu.brand_string"),
+      }
     return info
 
 
