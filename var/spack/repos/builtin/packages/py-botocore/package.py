@@ -12,6 +12,8 @@ class PyBotocore(PythonPackage):
     homepage = "https://github.com/boto/botocore"
     pypi = "botocore/botocore-1.13.44.tar.gz"
 
+    version('2.0.0dev90',sha256='a3c9ffa15565d101e462847c6218ba3ebeec6bc591a387d25c644562fec2404f', url='https://github.com/boto/botocore/tarball/d7c20d6a015197d2770d8d797b50288dc0dde640')
+
     version('1.13.44',  sha256='a4409008c32a3305b9c469c5cc92edb5b79d6fcbf6f56fe126886b545f0a4f3f')
     version('1.13.38',  sha256='15766a367f39dba9de3c6296aaa7da31030f08a0117fd12685e7df682d8acee2')
     version('1.12.169', sha256='25b44c3253b5ed1c9093efb57ffca440c5099a2d62fa793e8b6c52e72f54b01e')

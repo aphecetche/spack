@@ -19,11 +19,24 @@ class Teckit(AutotoolsPackage):
     homepage = "https://scripts.sil.org/cms/scripts/page.php?cat_id=TECkit"
     url      = "https://github.com/silnrsi/teckit/releases/download/v2.5.9/teckit-2.5.9.tar.gz"
 
+    version('2.5.10', sha256='269d12311bc37c57ebdec4aa539201c588030ddb4307c06e6924fb0e2d72168b')
     version('2.5.9', sha256='6823fb3142efa34e5d74de35d37cdf4724efbf577f5ff15a8e2b364e6ef47d3d')
 
+    depends_on('pkgconf', type='build')
+    depends_on('autoconf', type='build')
+    depends_on('automake', type='build')
+    depends_on('libtool',  type='build')
+    depends_on('m4',       type='build')
     depends_on('expat')
     depends_on('zlib')
+
+    force_autoreconf = True
 
     def configure_args(self):
         args = ['--with-system-zlib']
         return args
+
+    def patch(self):
+        filter_file(r'EXPAT_CFLAGS = \-DXML_DTD @expat_CFLAGS@',
+        'EXPAT_CFLAGS = -DXML_DTD @expat_CFLAGS@ -DHAVE_LIBEXPAT',
+        'bin/Makefile.am')

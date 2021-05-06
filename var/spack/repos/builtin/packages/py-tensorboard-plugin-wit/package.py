@@ -19,7 +19,7 @@ class PyTensorboardPluginWit(Package):
 
     maintainers = ['aweits']
 
-    version('master', branch='master')
+    version('1.8.0', sha256='1e4de1bbf6ae61c4d27b114ec2e1093bc4765b8c2bbb2cc5d43e2075b08a5fea')
     version('1.7.0', sha256='30dcab9065b02c3f1476f4fb92b27f6feb6c00cdb281699c44d8e69c86745247')
 
     depends_on('bazel@0.26.1:', type='build')

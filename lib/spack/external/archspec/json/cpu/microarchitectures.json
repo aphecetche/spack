@@ -1,5 +1,10 @@
 {
   "microarchitectures": {
+    "arm64": {
+      "from": [],
+      "vendor": "Apple",
+      "features": []
+    },
     "x86": {
       "from": [],
       "vendor": "generic",

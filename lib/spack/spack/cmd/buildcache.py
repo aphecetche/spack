@@ -386,10 +386,11 @@ def _createtarball(env, spec_yaml=None, packages=None, add_spec=True,
             if not add_deps:
                 continue
 
-            tty.debug('recursing dependencies')
+            tty.debug('toto recursing dependencies')
             for d, node in match.traverse(order='post',
                                           depth=True,
-                                          deptype=('link', 'run')):
+                                          deptype='all'):
+                tty.debug('d=%s spec=%s' % (d,node.format()))
                 # skip root, since it's handled above
                 if d == 0:
                     continue
