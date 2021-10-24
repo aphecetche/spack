@@ -26,3 +26,5 @@ class PySetuptoolsRust(PythonPackage):
     depends_on('py-semantic-version@2.6.0:', type=('build', 'run'))
     depends_on('py-toml@0.9.0:', type=('build', 'run'))
     depends_on('rust', type='run')
+    depends_on('py-wheel',type='build')
+    depends_on('py-packaging',type='build')
