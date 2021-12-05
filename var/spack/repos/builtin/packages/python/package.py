@@ -945,6 +945,8 @@ for plat_specific in [True, False]:
         if not is_system_path(path):
             env.prepend_path('PATH', path)
 
+        # FIXME: this is adding build deps of build deps to the PYTHONPATH.
+        # We only want to add direct build/test deps and recursive run deps of those.
         for d in dependent_spec.traverse(deptype=('build', 'run', 'test'), root=True):
             if d.package.extends(self.spec):
                 env.prepend_path('PYTHONPATH', join_path(
