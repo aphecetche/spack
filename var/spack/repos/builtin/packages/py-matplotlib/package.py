@@ -191,7 +191,7 @@ class PyMatplotlib(PythonPackage):
         env.set('CPATH', ':'.join(include))
         env.set('LIBRARY_PATH', ':'.join(library))
 
-    @run_before('build')
+    @run_before('install')
     def configure(self):
         """Set build options with regards to backend GUI libraries."""
 
@@ -210,9 +210,3 @@ class PyMatplotlib(PythonPackage):
                 config.write('system_qhull = True\n')
                 if self.spec.satisfies('%clang'):
                     config.write('enable_lto = False\n')
-
-    @run_after('build')
-    @on_package_attributes(run_tests=True)
-    def build_test(self):
-        pytest = which('pytest')
-        pytest()
