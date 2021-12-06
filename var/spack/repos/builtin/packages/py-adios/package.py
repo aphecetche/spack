@@ -51,9 +51,9 @@ class PyAdios(PythonPackage):
     depends_on('py-mpi4py', type=['run'], when='+mpi')
     depends_on('py-cython', type=['build'])
 
-    phases = ['build_clib', 'install']
     build_directory = 'wrappers/numpy'
 
+    @run_before('install')
     def build_clib(self, spec, prefix):
         # calls: make [MPI=y] python
         args = ''
