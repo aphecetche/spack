@@ -1020,8 +1020,6 @@ for plat_specific in [True, False]:
         """Called before python modules' install() methods."""
 
         module.python = self.command
-        module.setup_py = Executable(
-            self.command.path + ' setup.py --no-user-cfg')
 
         # Add variables for lib/pythonX.Y and lib/pythonX.Y/site-packages dirs.
         module.python_lib_dir = join_path(dependent_spec.prefix,
