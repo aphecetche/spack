@@ -7,7 +7,9 @@ from spack import *
 
 
 class PyAdios(PythonPackage):
-    """NumPy bindings of ADIOS1"""
+    """NumPy bindings of ADIOS1.
+
+    Deprecated: use ADIOS2 instead."""
 
     homepage = "https://csmd.ornl.gov/adios"
     url      = "https://github.com/ornladios/ADIOS/archive/v1.12.0.tar.gz"
@@ -15,14 +17,14 @@ class PyAdios(PythonPackage):
 
     maintainers = ['ax3l']
 
-    version('develop', branch='master')
-    version('1.13.1', sha256='b1c6949918f5e69f701cabfe5987c0b286793f1057d4690f04747852544e157b')
-    version('1.13.0', sha256='7b5ee8ff7a5f7215f157c484b20adb277ec0250f87510513edcc25d2c4739f50')
-    version('1.12.0', sha256='22bc22c157322abec2d1a0817a259efd9057f88c2113e67d918a9a5ebcb3d88d')
-    version('1.11.1', sha256='9f5c10b9471a721ba57d1cf6e5a55a7ad139a6c12da87b4dc128539e9eef370e')
-    version('1.11.0', sha256='e89d14ccbe7181777225e0ba6c272c0941539b8ccd440e72ed5a9457441dae83')
-    version('1.10.0', sha256='6713069259ee7bfd4d03f47640bf841874e9114bab24e7b0c58e310c42a0ec48')
-    version('1.9.0', sha256='23b2bb70540d51ab0855af0b205ca484fd1bd963c39580c29e3133f9e6fffd46')
+    version('develop', branch='master', deprecated=True)
+    version('1.13.1', sha256='b1c6949918f5e69f701cabfe5987c0b286793f1057d4690f04747852544e157b', deprecated=True)
+    version('1.13.0', sha256='7b5ee8ff7a5f7215f157c484b20adb277ec0250f87510513edcc25d2c4739f50', deprecated=True)
+    version('1.12.0', sha256='22bc22c157322abec2d1a0817a259efd9057f88c2113e67d918a9a5ebcb3d88d', deprecated=True)
+    version('1.11.1', sha256='9f5c10b9471a721ba57d1cf6e5a55a7ad139a6c12da87b4dc128539e9eef370e', deprecated=True)
+    version('1.11.0', sha256='e89d14ccbe7181777225e0ba6c272c0941539b8ccd440e72ed5a9457441dae83', deprecated=True)
+    version('1.10.0', sha256='6713069259ee7bfd4d03f47640bf841874e9114bab24e7b0c58e310c42a0ec48', deprecated=True)
+    version('1.9.0', sha256='23b2bb70540d51ab0855af0b205ca484fd1bd963c39580c29e3133f9e6fffd46', deprecated=True)
 
     variant('mpi', default=True,
             description='Enable MPI support')
@@ -51,13 +53,6 @@ class PyAdios(PythonPackage):
 
     phases = ['build_clib', 'install']
     build_directory = 'wrappers/numpy'
-
-    def setup_file(self):
-        """Returns the name of the setup file to use."""
-        if '+mpi' in self.spec:
-            return 'setup_mpi.py'
-        else:
-            return 'setup.py'
 
     def build_clib(self, spec, prefix):
         # calls: make [MPI=y] python
