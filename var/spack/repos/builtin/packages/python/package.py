@@ -945,12 +945,27 @@ for plat_specific in [True, False]:
         if not is_system_path(path):
             env.prepend_path('PATH', path)
 
-        # FIXME: this is adding build deps of build deps to the PYTHONPATH.
-        # We only want to add direct build/test deps and recursive run deps of those.
-        for d in dependent_spec.traverse(deptype=('build', 'run', 'test'), root=True):
-            if d.package.extends(self.spec):
-                env.prepend_path('PYTHONPATH', join_path(
-                    d.prefix, self.site_packages_dir))
+        # Add installation prefix to PYTHONPATH, needed to run import tests
+        if dependent_spec.package.extends(self.spec):
+            env.prepend_path(
+                'PYTHONPATH', join_path(dependent_spec.prefix, self.site_packages_dir)
+            )
+
+        for direct_dep in dependent_spec.dependencies(deptype=('build', 'run', 'test')):
+            # Add direct build/run/test dependencies to PYTHONPATH, needed to build
+            # the package and to run import tests
+            if direct_dep.package.extends(self.spec):
+                env.prepend_path(
+                    'PYTHONPATH', join_path(direct_dep.prefix, self.site_packages_dir)
+                )
+                # Add recursive run dependencies of all direct dependencies,
+                # needed by direct dependencies at run-time
+                for indirect_dep in direct_dep.traverse(deptype='run'):
+                    if indirect_dep.package.extends(self.spec):
+                        env.prepend_path(
+                            'PYTHONPATH',
+                            join_path(indirect_dep.prefix, self.site_packages_dir),
+                        )
 
         # We need to make sure that the extensions are compiled and linked with
         # the Spack wrapper. Paths to the executables that are used for these
