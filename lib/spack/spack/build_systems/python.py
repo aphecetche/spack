@@ -73,8 +73,6 @@ class PythonPackage(PackageBase):
             '--no-warn-script-location',
             # Ignore the PyPI package index
             '--no-index',
-            # Install source code in the current directory
-            '.'
         ]
 
     @property
@@ -169,6 +167,11 @@ class PythonPackage(PackageBase):
             args.append('--install-option=' + option)
         for option in self.global_options(spec, prefix):
             args.append('--global-option=' + option)
+
+        if self.stage.archive_file.endswith('.whl'):
+            args.append(self.stage.archive_file)
+        else:
+            args.append('.')
 
         pip = inspect.getmodule(self).pip
         with working_dir(self.build_directory):
