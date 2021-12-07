@@ -28,7 +28,7 @@ class PyPymol(PythonPackage):
     depends_on('py-pmw', type=('build', 'run'))
     depends_on('libmmtf-cpp', type=('build', 'run', 'link'))
     depends_on('msgpack-c', type=('build', 'run'))
-    depends_on('libpng@1.5.13', type=('build', 'run'))
+    depends_on('libpng', type=('build', 'run'))
 
     def setup_build_environment(self, env):
         include = []
