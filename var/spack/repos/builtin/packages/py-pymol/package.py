@@ -19,6 +19,8 @@ class PyPymol(PythonPackage):
     version('2.3.0', sha256='62aa21fafd1db805c876f89466e47513809f8198395e1f00a5f5cc40d6f40ed0')
 
     depends_on('python+tkinter', type=('build', 'run'))
+    # pip silently replaces distutils with setuptools
+    depends_on('py-setuptools', type='build')
     depends_on('freetype', type=('build', 'run'))
     depends_on('glew', type=('build'))
     depends_on('glm', type=('build'))

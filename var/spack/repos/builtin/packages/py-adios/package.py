@@ -46,6 +46,8 @@ class PyAdios(PythonPackage):
     # https://github.com/cython/cython/blob/0.29.x/CHANGES.rst
     depends_on('python@:3.6')
 
+    # pip silently replaces distutils with setuptools
+    depends_on('py-setuptools', type='build')
     depends_on('py-numpy', type=['build', 'run'])
     depends_on('mpi', when='+mpi')
     depends_on('py-mpi4py', type=['run'], when='+mpi')
