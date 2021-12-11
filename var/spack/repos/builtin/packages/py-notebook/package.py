@@ -10,6 +10,8 @@ class PyNotebook(PythonPackage):
     homepage = "https://github.com/jupyter/notebook"
     pypi = "notebook/notebook-6.1.4.tar.gz"
 
+    version('6.4.6', sha256='7bcdf79bd1cda534735bd9830d2cbedab4ee34d8fe1df6e7b946b3aab0902ba3')
+
     version('6.4.5', sha256='872e20da9ae518bbcac3e4e0092d5bd35454e847dedb8cb9739e9f3b68406be0')
     version('6.1.4', sha256='687d01f963ea20360c0b904ee7a37c3d8cda553858c8d6e33fd0afd13e89de32')
     version('6.0.3', sha256='47a9092975c9e7965ada00b9a20f0cf637d001db60d241d479f53c0be117ad48')

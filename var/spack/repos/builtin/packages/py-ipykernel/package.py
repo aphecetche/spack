@@ -10,6 +10,10 @@ class PyIpykernel(PythonPackage):
     homepage = "https://github.com/ipython/ipykernel"
     pypi = "ipykernel/ipykernel-5.3.4.tar.gz"
 
+    version('6.6.0', sha256='3a227788216b43982d9ac28195949467627b0d16e6b8af9741d95dcaa8c41a89')
+    version('6.5.1', sha256='dd27172bccbbcfef952991e49372e4c6fd1c14eed0df05ebd5b4335cb27a81a2')
+    version('6.5.0', sha256='299795cca2c4aed7e233e3ad5360e1c73627fd0dcec11a9e75d5b2df43629353')
+
     version('6.4.1', sha256='df3355e5eec23126bc89767a676c5f0abfc7f4c3497d118c592b83b316e8c0cd')
     version('6.2.0',  sha256='4439459f171d77f35b7f7e72dace5d7c2dd10a5c9e2c22b173ad9048fbfe7656')
     version('6.0.2',  sha256='7fb3e370dbb481b012b74bed4e794d2d16eb2a83930b31e6d8d030b9fdb4d5b4')
