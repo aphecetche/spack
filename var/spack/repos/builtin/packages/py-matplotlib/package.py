@@ -151,6 +151,12 @@ class PyMatplotlib(PythonPackage):
     depends_on('fontconfig@2.7:', when='+fonts')
     depends_on('pkgconfig', type='build')
 
+    # Testing dependencies
+    # https://matplotlib.org/stable/devel/development_setup.html#additional-dependencies-for-testing
+    depends_on('py-pytest@3.6:', type='test')
+    depends_on('ghostscript@9.0:', type='test')
+    # depends_on('inkscape@:0', type='test')
+
     msg = 'MacOSX backend requires the Cocoa headers included with XCode'
     conflicts('platform=linux', when='backend=macosx', msg=msg)
     conflicts('platform=cray',  when='backend=macosx', msg=msg)
@@ -204,3 +210,9 @@ class PyMatplotlib(PythonPackage):
                 config.write('system_qhull = True\n')
                 if self.spec.satisfies('%clang'):
                     config.write('enable_lto = False\n')
+
+    @run_after('install')
+    @on_package_attributes(run_tests=True)
+    def build_test(self):
+        pytest = which('pytest')
+        pytest()
