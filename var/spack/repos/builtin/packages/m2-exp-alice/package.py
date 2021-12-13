@@ -47,6 +47,7 @@ class M2ExpAlice(CMakePackage):
     depends_on('py-awkward')
     depends_on('py-hist+plot')
     depends_on('py-scikit-spatial',when='+tracking')
+    depends_on('py-ipywidgets')
 
     def cmake_args(self):
         args = []
