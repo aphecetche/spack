@@ -10,9 +10,10 @@ class PyNumexpr(PythonPackage):
     """Fast numerical expression evaluator for NumPy"""
 
     homepage = "https://github.com/pydata/numexpr"
-    url      = "https://github.com/pydata/numexpr/archive/v2.7.0.tar.gz"
+    #url      = "https://github.com/pydata/numexpr/archive/v2.7.0.tar.gz"
+    pypi = "numexpr/numexpr-2.8.1.tar.gz"
 
-    version('2.7.3', sha256='00d6b1518605afe0ed10417e0ff07123e5d531c02496c6eed7dd4b9923238e1e')
+    version('2.8.1', sha256='cd779aa44dd986c4ef10163519239602b027be06a527946656207acf1f58113b')
     version('2.7.2', sha256='7d1b3790103221feda07f4a93a4fa5c6654f46865197a677ca6f27eb5cb4e5ef')
     version('2.7.0', sha256='1923f038b90cc69635871968ed742be7775c879451c612f173c2547c823c9561')
     version('2.6.9', sha256='d57267bbdf10906f5ed7841b3484bec4af0494102b50e89ba316924cc7a7fd46')
