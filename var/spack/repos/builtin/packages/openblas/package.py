@@ -148,6 +148,9 @@ class Openblas(MakefilePackage):
         # unclear whether setting `-j N` externally was supported before 0.3
         return self.spec.version >= Version('0.3.0')
 
+    def edit(self, spec, prefix):
+        env['MACOSX_DEPLOYMENT_TARGET']='11.0'
+
     @run_before('edit')
     def check_compilers(self):
         # As of 06/2016 there is no mechanism to specify that packages which
