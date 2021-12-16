@@ -17,6 +17,7 @@ class Evtgen(CMakePackage):
 
     maintainers = ['vvolkl']
 
+    version('02.01.01', sha256='55e690e5239924438bc8181881f74f70b5260cad0592f477488f882fda5fc721')
     version('02.00.00', sha256='02372308e1261b8369d10538a3aa65fe60728ab343fcb64b224dac7313deb719')
     # switched to cmake in 02.00.00
     version('01.07.00', sha256='2648f1e2be5f11568d589d2079f22f589c283a2960390bbdb8d9d7f71bc9c014', deprecated=True)
@@ -25,6 +26,10 @@ class Evtgen(CMakePackage):
     variant('tauola', default=False, description='Build with tauola')
     variant('photos', default=False, description='Build with photos')
     variant('hepmc3', default=False, description='Link with hepmc3 (instead of hepmc)')
+
+    @property
+    def root_cmakelists_dir(self):
+        return "R{}".format(self.version.dashed)
 
     patch("g2c.patch", when='@01.07.00')
     patch("evtgen-2.0.0.patch", when='@02.00.00 ^pythia8@8.304:')
@@ -60,7 +65,7 @@ class Evtgen(CMakePackage):
         # the `-undefined dynamic_lookup` flag enables weak linking on Mac
         # Patch taken from CMS recipe:
         # https://github.com/cms-sw/cmsdist/blob/IB/CMSSW_12_1_X/master/evtgen.spec#L48
-        if not self.spec.satisfies("platform=darwin"):
+        if not self.spec.satisfies("platform=darwin @:02.00.01"):
             return
 
         filter_file('-shared', '-dynamiclib -undefined dynamic_lookup', 'make.inc')
