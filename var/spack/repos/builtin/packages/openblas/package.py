@@ -405,3 +405,6 @@ class Openblas(MakefilePackage):
             source_file, [include_flags], link_flags.split()
         )
         compare_output_file(output, blessed_file)
+
+    def edit(self,spec,prefix):
+        env['MACOSX_DEPLOYMENT_TARGET']='11.0'

@@ -201,7 +201,7 @@ class Root(CMakePackage):
     depends_on('cmake@3.9:', type='build', when='@6.18.00:')
     depends_on('pkgconfig', type='build')
 
-    depends_on('blas')
+    depends_on('blas',when="+tmva")
     depends_on('freetype')
     depends_on('jpeg')
     depends_on('libice')
