@@ -44,6 +44,7 @@ class PyJupyterServer(PythonPackage):
                       'jupyter_server.nbconvert',
                       'jupyter_server.files', 'jupyter_server.kernelspecs']
 
+    version('1.13.3', sha256='4d622161f4d378ff28548b49cc180024ce102d25ba5805821fcc17ab1bc5c754')
     version('1.11.2', sha256='c1f32e0c1807ab2de37bf70af97a36b4436db0bc8af3124632b1f4441038bf95')
     version('1.11.1', sha256='ab7ab1cc38512f15026cbcbb96300fb46ec8b24aa162263d9edd00e0a749b1e8')
     version('1.11.0', sha256='8ab4f484a4a2698f757cff0769d27b5d991e0232a666d54f4d6ada4e6a61330b')

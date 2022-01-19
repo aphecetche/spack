@@ -11,6 +11,7 @@ class PyJupyterlabServer(PythonPackage):
     homepage = "https://github.com/jupyterlab/jupyterlab_server"
     pypi = "jupyterlab_server/jupyterlab_server-1.2.0.tar.gz"
 
+    version('2.10.3', sha256='3fb84a5813d6d836ceda773fb2d4e9ef3c7944dbc1b45a8d59d98641a80de80a')
     version('2.6.0', sha256='f300adf6bb0a952bebe9c807a3b2a345d62da39b476b4f69ea0dc6b5f3f6b97d')
     version('1.2.0', sha256='5431d9dde96659364b7cc877693d5d21e7b80cea7ae3959ecc2b87518e5f5d8c')
     version('1.1.0', sha256='bac27e2ea40f686e592d6429877e7d46947ea76c08c878081b028c2c89f71733')

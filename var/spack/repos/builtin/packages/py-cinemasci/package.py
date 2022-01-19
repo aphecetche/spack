@@ -31,3 +31,6 @@ class PyCinemasci(PythonPackage):
     depends_on('py-jupyterlab', type=('build', 'run'))
     depends_on('py-pandas', type=('build', 'run'))
     depends_on('py-setuptools', type=('build'))
+
+    def setup_run_environmen(self,env):
+        env.prepend_path("JUPYTER_PATH",self.prefix.share.jupyter)

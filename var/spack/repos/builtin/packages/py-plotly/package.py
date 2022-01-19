@@ -26,3 +26,6 @@ class PyPlotly(PythonPackage):
     depends_on('py-requests',         when='@:2.2.0', type=('build', 'run'))
 
     depends_on('py-tenacity@6.2.0:',  when='@5.2.2:', type=('build', 'run'))
+
+    def setup_run_environment(self,env):
+        env.prepend_path("JUPYTER_PATH",self.prefix.share.jupyter)
