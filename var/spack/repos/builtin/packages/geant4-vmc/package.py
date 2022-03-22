@@ -18,6 +18,7 @@ class Geant4Vmc(CMakePackage):
     maintainer = ['wdconinc']
 
     version('master', branch='master')
+    version('5-4', sha256='2dbba0c1c41f5c06d19ceb438608e9e4119f22a22868191dcbe0b4eb782eeaa5')
     version('5-3',    sha256='22f58530963988380509a7741ad6b3dde21806f3862fb55c11cc27f25d3d3c2d')
     version('5-2',    sha256='5bd0e4a4f938048b35724f06075952ecfbc8a97ffc979630cfe2788323845b13')
     version('5-1-p1', sha256='2e3e4705134ea464e993156f71d478cb7d3817f5b6026bf8d9a37d32ec97590b')
