@@ -52,10 +52,16 @@ class Flatbuffers(CMakePackage):
                 setup_py('install', '--prefix=' + prefix,
                          '--single-version-externally-managed', '--root=/')
 
+    def patch(self):
+        if 'darwin' in self.spec.architecture:
+            filter_file(r'\-Wno\-unused\-parameter',r'-Wno-unused-parameter -Wno-deprecated-copy','CMakeLists.txt')
+      
+        
     def cmake_args(self):
         args = []
         args.append(self.define_from_variant('FLATBUFFERS_BUILD_SHAREDLIB', 'shared'))
         args.append('-DFLATBUFFERS_BUILD_FLATLIB={0}'.format(
+
             'ON' if '+shared' not in self.spec else 'OFF'))
         if 'darwin' in self.spec.architecture:
             args.append('-DCMAKE_MACOSX_RPATH=ON')

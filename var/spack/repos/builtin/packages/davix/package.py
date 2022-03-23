@@ -11,6 +11,9 @@ class Davix(CMakePackage):
 
     homepage = "https://davix.web.cern.ch/davix/docs/devel/index.html"
     url      = "https://github.com/cern-fts/davix/releases/download/R_0_7_6/davix-0.7.6.tar.gz"
+    git = "https://github.com/cern-fts/davix.git"
+
+    version('0.8.1', commit='96fbb96e80d6b639566249b058f8c4f190e44398')
 
     version('0.7.6', sha256='a2e7fdff29f7ba247a3bcdb08ab1db6d6ed745de2d3971b46526986caf360673')
     version('0.7.5', sha256='d920ca976846875d83af4dc50c99280bb3741fcf8351d5733453e70fa5fe6fc8')
@@ -28,10 +31,13 @@ class Davix(CMakePackage):
     depends_on('libxml2')
     depends_on('uuid')
     depends_on('openssl')
+    depends_on('curl')
 
     def cmake_args(self):
         cmake_args = ['-DCMAKE_CXX_STANDARD={0}'.format(
                       self.spec.variants['cxxstd'].value)]
+        cmake_args.append(self.define('EMBEDDED_LIBCURL',False))
+        cmake_args.append(self.define('DAVIX_TESTS',False))
         if 'darwin' in self.spec.architecture:
             cmake_args.append('-DCMAKE_MACOSX_RPATH=ON')
         return cmake_args

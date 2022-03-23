@@ -21,3 +21,9 @@ class Libwebsockets(CMakePackage):
 
     depends_on('zlib')
     depends_on('openssl')
+
+    def cmake_args(self):
+        args = [self.define('CMAKE_C_FLAGS','-Wno-unused-but-set-variable')]
+        return args
+
+        
