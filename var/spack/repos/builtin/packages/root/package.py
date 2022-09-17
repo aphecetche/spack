@@ -215,12 +215,8 @@ class Root(CMakePackage):
     depends_on("ftgl@2.4.0:", when="+opengl")
     depends_on("glew", when="+opengl")
     depends_on("gl2ps", when="+opengl")
-    if sys.platform != "darwin":
-        depends_on("gl", when="+x+opengl")
-        depends_on("glu", when="+x+opengl")
-    else:
-        depends_on("gl", when="+opengl")
-        depends_on("glu", when="+opengl")
+    depends_on("gl", when="+opengl")
+    depends_on("glu", when="+opengl")
 
     # Qt4
     depends_on("qt@:4", when="+qt4")
@@ -436,7 +432,7 @@ class Root(CMakePackage):
         # Options related to ROOT's ability to download and build its own
         # dependencies. Per Spack convention, this should generally be avoided.
 
-        afterimage_enabled = "+x" if "platform=darwin" not in self.spec else True
+        afterimage_enabled = ("+x" in self.spec) if "platform=darwin" not in self.spec else True
 
         options += [
             define("builtin_afterimage", afterimage_enabled),
