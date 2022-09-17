@@ -1,4 +1,4 @@
-# Copyright 2013-2022 Lawrence Livermore National Security, LLC and other
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
@@ -12,14 +12,21 @@ class Arrow(CMakePackage, CudaPackage):
     This package contains the C++ bindings.
     """
 
-    homepage = "https://arrow.apache.org"
+    homepage = "http://arrow.apache.org"
     url = "https://github.com/apache/arrow/archive/apache-arrow-0.9.0.tar.gz"
 
     version("9.0.0", sha256="bb187b4b0af8dcc027fffed3700a7b891c9f76c9b63ad8925b4afb8257a2bb1b")
     version("8.0.0", sha256="19ece12de48e51ce4287d2dee00dc358fbc5ff02f41629d16076f77b8579e272")
     version("7.0.0", sha256="57e13c62f27b710e1de54fd30faed612aefa22aa41fa2c0c3bacd204dd18a8f3")
+    version("6.0.1", sha256="826a7dfb246d47862d43b620e0e579f90a4df4c5e571613651dc6397d1e4a435")
+    version("6.0.0", sha256="4e5db56ed20936b84c5b0f8e652528612ad5912fbfeafc3f39ff52a47176165f")
+    version("5.0.0", sha256="ec3bdae6ccc08de5b5adcf9cbe7cbc085cab0ba06c8e6d3abfc3ed1cd4c1c9a2")
     version("4.0.1", sha256="79d3e807df4a179cfab1e7a1ab5f79d95f7b72ac2c33aba030febd125d77eb3b")
+    version("4.0.0", sha256="a27971e2a71c412ae43d998b7b6d06201c7a3da382c804dcdc4a8126ccbabe67")
     version("3.0.0", sha256="fc461c4f0a60e7470a7c58b28e9344aa8fb0be5cc982e9658970217e084c3a82")
+    version("2.0.0", sha256="ea299df9cf440cfc43393ce12ee6d9a4c9d0dfa9fde33c3bc9b70ec25520a844")
+    version("1.0.1", sha256="dac59f4d42416224419c020ed2e8f8371e85c1d9ff4368ed5b5c026ee28d3fd4")
+    version("1.0.0", sha256="08fbd4c633c08939850d619ca0224c75d7a0526467c721c0838b8aa7efccb270")
     version("0.17.1", sha256="ecb6da20f9288c0ca31f9b457ffdd460198765a8af27c1cac4b1382a8d130f86")
     version("0.15.1", sha256="ab1c0d371a10b615eccfcead71bb79832245d788f4834cc6b278c03c3872d593")
     version("0.15.0", sha256="d1072d8c4bf9166949f4b722a89350a88b7c8912f51642a5d52283448acdfd58")
