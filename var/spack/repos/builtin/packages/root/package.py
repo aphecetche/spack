@@ -15,7 +15,8 @@ class Root(CMakePackage):
     """ROOT is a data analysis framework."""
 
     homepage = "https://root.cern.ch"
-    url = "https://root.cern/download/root_v6.16.00.source.tar.gz"
+    # url = "https://root.cern/download/root_v6.16.00.source.tar.gz"
+    url = "https://github.com/root-project/root/archive/refs/tags/v6-26-10.tar.gz"
     git = "https://github.com/root-project/root.git"
 
     executables = ["^root$", "^root-config$"]
@@ -212,7 +213,7 @@ class Root(CMakePackage):
     depends_on("cmake@3.19:", type="build", when="@6.28.00: platform=darwin")
     depends_on("pkgconfig", type="build")
 
-    depends_on("blas")
+    depends_on("blas", when="+tmva")
     depends_on("freetype")
     depends_on("jpeg")
     depends_on("libice")
@@ -436,6 +437,28 @@ class Root(CMakePackage):
         _add_variant(v, f, "xrootd", "+xrootd")
         return " ".join(v)
 
+    def patch(self):
+        # use custom ROOT_PLUGIN_PATH to allow plugins coming
+        # from packages depending on Root
+        # ROOT_PLUGIN_PATH is by default self.prefix.etc.plugins
+        # (see setup_run_environment)
+        filter_file(
+            r"^#(Unix\.\*\.Root\.PluginPath).*",
+            r"\1: $(ROOT_PLUGIN_PATH)",
+            "config/rootrc.in",
+        )
+        # ROOT_DYN_PATH is by default self.prefix.lib (see
+        # setup_run_environment) but can be amended
+        # by packages depending on Root so that their libraries
+        # are properly found e.g. by gSystem->Load("libname")
+        # (in particular on macOS where (DY)LD_LIBRARY_PATH
+        # cannot generally be used)
+        filter_file(
+            r"^#(Unix\.\*\.Root\.DynamicPath).*",
+            r"\1: .:$(ROOT_DYN_PATH)",
+            "config/rootrc.in",
+        )
+
     def cmake_args(self):
         spec = self.spec
         define = self.define
@@ -657,6 +680,8 @@ class Root(CMakePackage):
         # the following vars are copied from thisroot.sh; silence a cppyy warning
         env.set("CLING_STANDARD_PCH", "none")
         env.set("CPPYY_API_PATH", "none")
+        env.prepend_path("ROOT_DYN_PATH", self.prefix.lib)
+        env.prepend_path("ROOT_PLUGIN_PATH", self.prefix.etc.root.plugins)
 
     def setup_dependent_build_environment(self, env, dependent_spec):
         env.set("ROOTSYS", self.prefix)
