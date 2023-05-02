@@ -242,6 +242,7 @@ class Llvm(CMakePackage, CudaPackage):
         description="Enable zstd support for static analyzer / lld",
     )
 
+    provides("libllvm@15", when="@15.0.0:15")
     provides("libllvm@14", when="@14.0.0:14")
     provides("libllvm@13", when="@13.0.0:13")
     provides("libllvm@12", when="@12.0.0:12")
@@ -892,12 +893,14 @@ class Llvm(CMakePackage, CudaPackage):
                 from_variant("LLVM_BUILD_LLVM_DYLIB", "llvm_dylib"),
                 from_variant("LLVM_LINK_LLVM_DYLIB", "link_llvm_dylib"),
                 from_variant("LLVM_USE_SPLIT_DWARF", "split_dwarf"),
-                # By default on Linux, libc++.so is a ldscript. CMake fails to add
-                # CMAKE_INSTALL_RPATH to it, which fails. Statically link libc++abi.a
-                # into libc++.so, linking with -lc++ or -stdlib=libc++ is enough.
-                define("LIBCXX_ENABLE_STATIC_ABI_LIBRARY", True),
             ]
         )
+
+        # By default on Linux, libc++.so is a ldscript. CMake fails to add
+        # CMAKE_INSTALL_RPATH to it, which fails. Statically link libc++abi.a
+        # into libc++.so, linking with -lc++ or -stdlib=libc++ is enough.
+        if sys.platform != "darwin":
+           cmake_args.append(define("LIBCXX_ENABLE_STATIC_ABI_LIBRARY", True))
 
         cmake_args.append(define("LLVM_TARGETS_TO_BUILD", get_llvm_targets_to_build(spec)))
 

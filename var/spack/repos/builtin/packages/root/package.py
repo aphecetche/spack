@@ -15,8 +15,7 @@ class Root(CMakePackage):
     """ROOT is a data analysis framework."""
 
     homepage = "https://root.cern.ch"
-    # url = "https://root.cern/download/root_v6.16.00.source.tar.gz"
-    url = "https://github.com/root-project/root/archive/refs/tags/v6-26-10.tar.gz"
+    url = "https://root.cern/download/root_v6.16.00.source.tar.gz"
     git = "https://github.com/root-project/root.git"
 
     executables = ["^root$", "^root-config$"]
@@ -443,9 +442,7 @@ class Root(CMakePackage):
         # ROOT_PLUGIN_PATH is by default self.prefix.etc.plugins
         # (see setup_run_environment)
         filter_file(
-            r"^#(Unix\.\*\.Root\.PluginPath).*",
-            r"\1: $(ROOT_PLUGIN_PATH)",
-            "config/rootrc.in",
+            r"^#(Unix\.\*\.Root\.PluginPath).*", r"\1: $(ROOT_PLUGIN_PATH)", "config/rootrc.in"
         )
         # ROOT_DYN_PATH is by default self.prefix.lib (see
         # setup_run_environment) but can be amended
@@ -454,9 +451,7 @@ class Root(CMakePackage):
         # (in particular on macOS where (DY)LD_LIBRARY_PATH
         # cannot generally be used)
         filter_file(
-            r"^#(Unix\.\*\.Root\.DynamicPath).*",
-            r"\1: .:$(ROOT_DYN_PATH)",
-            "config/rootrc.in",
+            r"^#(Unix\.\*\.Root\.DynamicPath).*", r"\1: .:$(ROOT_DYN_PATH)", "config/rootrc.in"
         )
 
     def cmake_args(self):
@@ -695,6 +690,8 @@ class Root(CMakePackage):
         if "platform=darwin" in self.spec:
             # Newer deployment targets cause fatal errors in rootcling
             env.unset("MACOSX_DEPLOYMENT_TARGET")
+        env.prepend_path("ROOT_DYN_PATH", self.prefix.lib)
+        env.prepend_path("ROOT_PLUGIN_PATH", self.prefix.etc.root.plugins)
 
     def setup_dependent_run_environment(self, env, dependent_spec):
         env.set("ROOTSYS", self.prefix)
@@ -704,3 +701,5 @@ class Root(CMakePackage):
         env.prepend_path("ROOT_INCLUDE_PATH", dependent_spec.prefix.include)
         if "+rpath" not in self.spec:
             env.prepend_path("LD_LIBRARY_PATH", self.prefix.lib.root)
+        env.prepend_path("ROOT_DYN_PATH", self.prefix.lib)
+        env.prepend_path("ROOT_PLUGIN_PATH", self.prefix.etc.root.plugins)

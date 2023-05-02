@@ -15,6 +15,7 @@ class Arrow(CMakePackage, CudaPackage):
     homepage = "https://arrow.apache.org"
     url = "https://github.com/apache/arrow/archive/apache-arrow-0.9.0.tar.gz"
 
+    version("11.0.0", sha256="4a8c0c3d5b39ca81f4a636a41863f1cf5e0ed199f994bf5ead0854ca037eb741")
     version("10.0.1", sha256="28c3e0402bc1c3c1e047b6e26cedb8d1d89b2b9497d576af24b0b700eef11701")
     version("9.0.0", sha256="bb187b4b0af8dcc027fffed3700a7b891c9f76c9b63ad8925b4afb8257a2bb1b")
     version("8.0.0", sha256="19ece12de48e51ce4287d2dee00dc358fbc5ff02f41629d16076f77b8579e272")
@@ -36,7 +37,8 @@ class Arrow(CMakePackage, CudaPackage):
     depends_on("llvm@:11 +clang", when="+gandiva @:3", type="build")
     depends_on("llvm@:12 +clang", when="+gandiva @:4", type="build")
     depends_on("llvm@:13 +clang", when="+gandiva @:7", type="build")
-    depends_on("llvm@:14 +clang", when="+gandiva @8:", type="build")
+    depends_on("llvm@:14 +clang", when="+gandiva @:10", type="build")
+    depends_on("llvm@:15 +clang", when="+gandiva @:11")
     depends_on("lz4", when="+lz4")
     depends_on("ninja", type="build")
     depends_on("openssl", when="+gandiva @6.0.0:")

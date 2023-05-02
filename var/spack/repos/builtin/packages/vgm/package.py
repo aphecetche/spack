@@ -19,6 +19,7 @@ class Vgm(CMakePackage):
     maintainer = ["wdconinc"]
 
     version("master", branch="master")
+    version("5-1", sha256="fcefbb35f6b0c183e5f2972ad0f5f051150cf9621a69fbe9d1b2805d2fd695ca")
     version("5-0", sha256="ab929df1aa9b0cda40451f5a98982c3328901865b33e30207ee9b9fe14331344")
     version("4-8", sha256="4fcd607b4f100fc00a65fec7a5803575daf9d4919d1808bbd6a30be263c001dd")
     version("4-7", sha256="a5f5588db457dc3e6562d1f7da1707960304560fbb0a261559fa3f112a476aea")
@@ -30,6 +31,14 @@ class Vgm(CMakePackage):
     version("4-01", sha256="43020f6497f18086c50e263555c2a21c6cfbba3044b1330c6f400357f040bbb1")
     version("4-00", sha256="c24de76f919dca7c92b3c9fce7a39142c6e61fd39f691d2e4df15fe413b5190d")
     version("3-06", sha256="41948869f2e4dcfa31f4bad42b938c25dd174660c427feb2f9effa9af5e59c7d")
+
+    variant(
+        "cxxstd",
+        default="17",
+        values=("17", "20"),
+        multi=False,
+        description="Force a specific C++ standard",
+    )
 
     depends_on("cmake@3.8:", type="build")
     depends_on("clhep")
@@ -44,5 +53,6 @@ class Vgm(CMakePackage):
         args.append("-DCLHEP_LIB_DIR={0}".format(self.spec["clhep"].prefix.lib))
         args.append("-DCLHEP_INC_DIR={0}".format(self.spec["clhep"].prefix.include))
         args.append("-DWITH_TEST=OFF")
+        args.append(self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"))
 
         return args

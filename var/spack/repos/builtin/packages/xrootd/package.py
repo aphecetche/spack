@@ -139,7 +139,7 @@ class Xrootd(CMakePackage):
     patch(
         "https://patch-diff.githubusercontent.com/raw/xrootd/xrootd/pull/1805.patch?full_index=1",
         sha256="2655e2d609d80bf9c9ab58557f4f6940408a1af9c686e7aa214ac0348c89c8fa",
-        when="@5.5.1",
+        when="@5.5.1:",
     )
     # https://github.com/xrootd/xrootd/pull/1930
     patch(
